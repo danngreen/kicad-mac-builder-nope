@@ -45,6 +45,9 @@ fixup_and_cleanup()
     # Rehide the background file
     SetFile -a V "${MOUNTPOINT}"/background.png
 
+    # set the icon of the Kicad folder
+    python -c "import Cocoa ; import sys ; Cocoa.NSWorkspace.sharedWorkspace().setIcon_forFile_options_(Cocoa.NSImage.alloc().initWithContentsOfFile_(sys.argv[1].decode('utf-8')), sys.argv[2].decode('utf-8'), 0) or sys.exit(\"Unable to set file icon\");" "${PACKAGING_DIR}"/folder-icon.png "${MOUNTPOINT}"/KiCad
+
     hdiutil detach "${MOUNTPOINT}"
     rm -r "${MOUNTPOINT}"
 
